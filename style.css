@@ -117,15 +117,22 @@ body {
     flex-direction: column;
     overflow: hidden;
     z-index: 1000;
-    transform: translateY(100%) translateX(100%); /* Изначально скрыт за пределами экрана */
+    /*transform: translateY(100%) translateX(100%); /* Изначально скрыт за пределами экрана */
     opacity: 0;
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Плавное появление */
     color: var(--oc-text-color); /* Применяем основной цвет текста ко всему чату */
+
+    transform-origin: bottom right;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    transform: scale(0.1);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .oc-online-consultant-wrapper.open {
-    transform: translateY(0) translateX(0); /* Появляется */
+    transform: scale(1);
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* Стили для шапки */
