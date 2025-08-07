@@ -245,6 +245,9 @@ body {
     background-color: var(--oc-background-color); /* Фон, если sticky */
     z-index: 5;
     margin-top: auto; /* Прижимает контейнер ввода к низу */
+    flex-direction: column;
+    align-items: stretch;
+    gap:10px;
 }
 
 .oc-message-input {
@@ -255,12 +258,13 @@ body {
     font-size: 1em;
     outline: none; /* Убрать обводку при фокусе */
     flex: 1 1 auto;
-    width: 0; /* Для корректной работы flex-grow */
     color: var(--oc-text-color); /* Цвет текста в инпуте */
+    font-family: Arial, sans-serif;
 }
 
 .oc-message-input::placeholder {
     color: #888;
+    font-family: Arial, sans-serif;
 }
 
 .oc-send-button {
@@ -269,7 +273,6 @@ body {
     border: none;
     border-radius: 20px;
     padding: 12px 20px;
-    margin-left: 10px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.2s ease;
