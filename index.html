@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн-консультант</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Основной контент вашей страницы будет здесь -->
+    <div style="min-height: 200vh; padding: 20px;">
+        <h1>Основной контент страницы</h1>
+        <p>Здесь может быть ваш основной контент, который не должен быть затронут стилями чата.</p>
+    </div>
+
+    <!-- Кнопка-иконка онлайн-консультанта -->
+    <div id="oc-chat-toggle-button" class="oc-chat-toggle-button">
+    	<img src="img/1.png" alt="Аватар" class="oc-avatar">
+        <div class="oc-pulsating-circle"></div>
+    </div>
+
+    <!-- Общий контейнер онлайн-консультанта -->
+    <div id="oc-online-consultant" class="oc-online-consultant-wrapper">
+        <div class="oc-online-consultant-header">
+            <span>Онлайн Консультант</span>
+            <div class="oc-header-dot"></div>
+            <button class="oc-close-button" id="oc-close-chat-button">&times;</button>
+        </div>
+        <div class="oc-online-consultant-body">
+            <!-- Пример сообщения от консультанта -->
+            <div class="oc-message oc-consultant-message">
+                <img src="img/1.png" alt="Аватар" class="oc-avatar">
+                <div class="oc-message-content">
+                    Вижу, вас заинтересовала сеть образовательных центров для школьников? Могу вам помочь!
+                </div>
+            </div>
+            <div class="oc-message oc-user-message">
+                <img src="img/user.png" alt="Аватар" class="oc-avatar">
+                <div class="oc-message-content">
+                    Вижу, вас заинтересовала сеть образовательных центров для школьников? Могу вам помочь!
+                </div>
+            </div>
+
+            <!-- Варианты ответов (кнопки) -->
+            <div class="oc-options-container">
+                <a class="oc-option-button">где найти учебники?</a>
+                <a class="oc-option-button">или нигде?</a>
+                <a class="oc-option-button">что такое онлайн центр?</a>
+                <a class="oc-option-button">зачем мне это?</a>
+                <a class="oc-option-button">что это такое?</a>
+            </div>
+
+            <!-- Поле для ввода сообщения -->
+            <div class="oc-message-input-container">
+                <input type="text" placeholder="Ваше сообщение" class="oc-message-input">
+                <button class="oc-send-button">Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

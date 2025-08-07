@@ -1,0 +1,287 @@
+/* Объявление CSS переменных для всего чата */
+:root {
+    /* Основные цвета */
+    --oc-primary-color: #007bff; /* Синий, для шапки, кнопок */
+    --oc-secondary-color: #4CAF50; /* Зеленый, для индикаторов, пульсации */
+    --oc-text-color: #333; /* Основной цвет текста */
+    --oc-light-text-color: #fff; /* Светлый текст */
+    --oc-background-color: #fff; /* Фон чата */
+    --oc-body-background-color: #f0f2f5; /* Фон для общего body, чтобы чат выделялся */
+    --oc-message-consultant-bg: #e9ecef; /* Фон сообщений консультанта */
+    --oc-message-user-bg: #dcf8c6; /* Фон сообщений пользователя (примерно как в мессенджерах) */
+    --oc-border-color: #ccc; /* Цвет границ */
+    --oc-shadow-light: rgba(0, 0, 0, 0.2);
+    --oc-shadow-medium: rgba(0, 0, 0, 0.25);
+
+    /* Градиенты или другие сложные цвета (если нужны) */
+    /* --oc-gradient-header: linear-gradient(to right, #007bff, #0056b3); */
+}
+
+/* Общие стили для body, чтобы избежать полос прокрутки, если не нужно */
+/* Важно: эти стили влияют на весь body. Если вам не нужно, чтобы чат управлял body,
+   тогда удалите их. Но они здесь для демонстрации, что внешние стили не мешают. */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--oc-body-background-color);
+    overflow-x: hidden; /* Предотвращаем горизонтальный скролл */
+}
+
+/* Стили для кнопки-иконки чата внизу справа */
+.oc-chat-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 72px; /* Размер кружка */
+    height: 72px; /* Размер кружка */
+    background-color: var(--oc-secondary-color); /* Зеленый цвет */
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px var(--oc-shadow-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Чтобы был поверх всего */
+    transition: opacity 0.3s ease; /* Для плавного скрытия/показа */
+}
+
+.oc-chat-toggle-button .oc-avatar { /* Специфичность для img внутри кнопки */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Чтобы аватар тоже был круглым */
+}
+
+/* Пульсирующий эффект */
+.oc-pulsating-circle {
+    border-radius: 50%;
+    background-color: var(--oc-secondary-color);
+    animation: oc-pulsate 1.5s infinite ease-out; /* Префикс к анимации */
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border: 5px solid var(--oc-light-text-color);
+    top: -7px;
+    right: -7px; /* Изменено, чтобы было более наглядно справа сверху */
+}
+
+@keyframes oc-pulsate {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+}
+
+/* Стили для контейнера онлайн-консультанта */
+.oc-online-consultant-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 340px; /* Ширина формы чата */
+    height: 460px; /* Высота формы чата */
+    background-color: var(--oc-background-color);
+    border-radius: 10px;
+    box-shadow: 0 8px 16px var(--oc-shadow-medium);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    transform: translateY(100%) translateX(100%); /* Изначально скрыт за пределами экрана */
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Плавное появление */
+    color: var(--oc-text-color); /* Применяем основной цвет текста ко всему чату */
+}
+
+.oc-online-consultant-wrapper.open {
+    transform: translateY(0) translateX(0); /* Появляется */
+    opacity: 1;
+}
+
+/* Стили для шапки */
+.oc-online-consultant-header {
+    background-color: var(--oc-primary-color); /* Синий цвет как на фото */
+    color: var(--oc-light-text-color);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+    z-index: 10; /* Чтобы шапка перекрывала содержимое при скролле */
+}
+
+.oc-online-consultant-header .oc-header-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--oc-secondary-color); /* Зеленый кружок */
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: oc-pulsate-small 1.5s infinite ease-out; /* Отдельная анимация для точки в шапке */
+    margin-right: auto;
+}
+
+@keyframes oc-pulsate-small {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.7; }
+}
+
+.oc-online-consultant-header .oc-close-button {
+    background: none;
+    border: none;
+    color: var(--oc-light-text-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+/* Стили для тела чата */
+.oc-online-consultant-body {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto; /* Позволяет прокручивать сообщения */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Отступы между элементами */
+}
+
+/* Стили для сообщений */
+.oc-message {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.oc-message.oc-user-message {
+    justify-content: flex-end;
+}
+
+.oc-message.oc-user-message .oc-message-content { /* Изменен order для пользователя */
+    order: -1; /* Поменяли порядок, если справа */
+    background-color: var(--oc-message-user-bg); /* Более подходящий цвет для пользователя */
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 15px; /* Корректируем радиусы */
+    border-top-left-radius: 15px;
+}
+.oc-message.oc-consultant-message .oc-message-content {
+    background-color: var(--oc-message-consultant-bg);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 15px; /* Корректируем радиусы */
+    border-top-right-radius: 15px;
+}
+
+
+.oc-message .oc-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0; /* Не сжимать аватар */
+}
+
+.oc-message-content {
+    padding: 12px 16px;
+    border-radius: 15px;
+    max-width: 80%; /* Ограничить ширину сообщения */
+    word-wrap: break-word; /* Перенос длинных слов */
+}
+
+
+/* Стили для контейнера с кнопками-опциями */
+.oc-options-container {
+    display: flex;
+    flex-wrap: wrap; /* Разрешение переносить элементы на новую строку */
+    gap: 6px; /* Отступы между кнопками */
+    margin-top: 10px;
+}
+
+.oc-option-button {
+    background-color: var(--oc-primary-color); /* Синий фон */
+    color: var(--oc-light-text-color);
+    border: none;
+    border-radius: 20px; /* Более скругленные кнопки */
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    white-space: nowrap; /* Не переносить текст на кнопке */
+    flex-grow: 0; /* Не растягивать по умолчанию */
+    flex-shrink: 0; /* Не сжимать */
+    transition: background-color 0.2s ease;
+    text-decoration: none; /* Убрать подчеркивание у ссылок */
+    text-align: center;
+}
+
+.oc-option-button:hover {
+    background-color: #0056b3; /* Чуть темнее при наведении, или можно использовать darken() в препроцессорах */
+}
+
+/* Применение этого класса, если нужна кнопка полной ширины */
+.oc-option-button.full-width {
+    flex-basis: 100%; /* Занимает всю доступную ширину */
+    max-width: 100%;
+}
+
+
+/* Стили для поля ввода сообщения */
+.oc-message-input-container {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 5px; /* Немного padding снизу */
+    position: sticky; /* Может быть использовано для фиксации внизу */
+    bottom: 0;
+    background-color: var(--oc-background-color); /* Фон, если sticky */
+    z-index: 5;
+    margin-top: auto; /* Прижимает контейнер ввода к низу */
+}
+
+.oc-message-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--oc-border-color);
+    border-radius: 20px; /* Скругленные поля ввода */
+    font-size: 1em;
+    outline: none; /* Убрать обводку при фокусе */
+    flex: 1 1 auto;
+    width: 0; /* Для корректной работы flex-grow */
+    color: var(--oc-text-color); /* Цвет текста в инпуте */
+}
+
+.oc-message-input::placeholder {
+    color: #888;
+}
+
+.oc-send-button {
+    background-color: var(--oc-primary-color);
+    color: var(--oc-light-text-color);
+    border: none;
+    border-radius: 20px;
+    padding: 12px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    font-size: 14px;
+    flex-shrink: 0; /* Не сжимать кнопку */
+}
+
+.oc-send-button:hover {
+    background-color: #0056b3;
+}
+@media (max-width: 560px) {
+    .oc-online-consultant-wrapper{
+        width: calc(100% - 40px);
+    }
+}
